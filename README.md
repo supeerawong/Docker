@@ -1,10 +1,13 @@
 # Docker
 
-Build image with code: \n
-sudo docker build -t supeerawong/alfresco \n\n
+Build image with code: 
 
-Run container with code: \n
-sudo docker run --name=alfresco -i -t -p -d 8080:8080 supeerawong/alfresco \n\n
+  sudo docker build -t supeerawong/alfresco 
 
-Connect to Localhost:8080/share \n
+Run container with code: 
+
+   sudo docker run --name=alfresco -i -t -p -d 8080:8080 supeerawong/alfresco 
+
+Connect to Localhost:8080/share 
+
 Enjoy!
