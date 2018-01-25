@@ -28,7 +28,7 @@ RUN wget http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1
 	tar xvzf mysql-connector-java-5.1.43.tar.gz mysql-connector-java-5.1.43/mysql-connector-java-5.1.43-bin.jar && \
 	mv mysql-connector-java-5.1.43/mysql-connector-java-5.1.43-bin.jar /alfresco/tomcat/lib
 
-# this is for LDAP configuration
+# LDAP configuration
 RUN mkdir -p /alfresco/tomcat/shared/classes/alfresco/extension/subsystems/Authentication/ldap/ldap1/
 RUN mkdir -p /alfresco/tomcat/shared/classes/alfresco/extension/subsystems/Authentication/ldap-ad/ldap1/
 COPY assets/ldap-authentication.properties /alfresco/tomcat/shared/classes/alfresco/extension/subsystems/Authentication/ldap/ldap1/ldap-authentication.properties
@@ -43,8 +43,9 @@ COPY assets/disable_tomcat_CSRF.patch /alfresco/disable_tomcat_CSRF.patch
 #install script
 COPY assets/init.sh /alfresco/init.sh
 COPY assets/supervisord.conf /etc/supervisord.conf
+
 RUN chmod 755 /etc/supervisord.conf && \
-	chmod 755 /alfresco/init.sh
+	chmod 755 /alfresco/init.sh 
 
 RUN mkdir -p /alfresco/tomcat/webapps/ROOT
 COPY assets/index.jsp /alfresco/tomcat/webapps/ROOT/
