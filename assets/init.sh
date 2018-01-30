@@ -11,8 +11,9 @@ ALF_SETUP=$ALF_HOME/setup
 ALF_SCRIPT=$ALF_HOME/alfresco.sh
 CATALINA_HOME=$ALF_HOME/tomcat
 
-$ALF_SCRIPT stop
-rm -f $ALF_HOME/alfresco.pid
+$ALF_HOME/tomcat/scripts/ctl.sh stop
+#$ALF_SCRIPT stop
+#rm -f $ALF_HOME/alfresco.pid
 
 ALFRESCO_HOSTNAME=${ALFRESCO_HOSTNAME:-127.0.0.1}
 ALFRESCO_PROTOCOL=${ALFRESCO_PROTOCOL:-http}
