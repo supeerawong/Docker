@@ -1,9 +1,9 @@
 # Docker
 
-Build image with code: 
+Build image with code: \
 sudo docker build -t supeerawong/alfresco 
 
-Run container with code: 
+Run container with code: \
 docker run --name 'mysql' -d -p 3306:3306 \
     -e MYSQL_ROOT_PASSWORD=secret \
     -e MYSQL_DATABASE=alfresco \
