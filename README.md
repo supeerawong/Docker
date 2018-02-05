@@ -21,7 +21,7 @@ docker run --name='alfresco' -d -p 8080:8080
     -e DB_HOST=mysql 
     -e DB_PASSWORD=secret 
     --link mysql:mysql 
-    supeerawong/alfresco 
+    supeerawong/docker 
 
 Connect to Localhost:8080/share 
 
