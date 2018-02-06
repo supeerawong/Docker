@@ -1,0 +1,48 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: alfresco-test
+  name: alfresco-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alfresco-test
+  template:
+    metadata:
+      labels:
+        app: alfresco-test
+    spec:
+      containers:
+        - image: supeerawong/docker
+          name: alfresco-test
+          env:
+          - name: DB_HOST
+            value: mysql
+          - name: DB_KIND
+            value: mysql
+          - name: DB_PASSWORD
+            value: alfresco
+          - name: DB_USER
+            value: root
+          - name: CONTENT_STORE
+            value: /content
+          ports:
+            - containerPort: 8080
+              name: alfresco-test
+          volumeMounts:
+            # name must match the volume name below
+            - name: alfresco-data-persistent-storage
+            # mount path within the container
+              mountPath: /alfresco/alf_data
+            - name: alfresco-persistent-storage
+              mountPath: /content
+      volumes:
+        - name: alfresco-data-persistent-storage
+          hostPath:
+            path: /mnt/test/alfresco/data
+        - name: alfresco-persistent-storage
+          hostPath:
+            path: /mnt/test/alfresco/content
+
