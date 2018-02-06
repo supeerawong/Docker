@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  labels:
+    app: alfresco-test
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: alfresco-test
+    tier: mysql
+  clusterIP: None
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment 
+metadata:
+  name: mysql
+  labels:
+    app: alfresco-test
+spec:
+  selector:
+    matchLabels:
+      app: alfresco-test
+      tier: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: alfresco-test
+        tier: mysql
+    spec:
+      containers:
+      - image: mysql 
+        name: mysql
+        env:
+        - name: MYSQL_DATABASE
+          value: alfresco
+        - name: MYSQL_PASSWORD
+          value: alfresco
+        - name: MYSQL_ROOT_PASSWORD
+          value: alfresco
+        - name: MYSQL_USER  
+          value: alfresco
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        hostPath:
+          path: /mnt/test/mysql

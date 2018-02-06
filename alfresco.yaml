@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: alfresco-test
+  labels:
+    app: alfresco-test
+spec:
+  ports:
+    - port: 8080
+      nodePort: 32222
+  selector:
+    app: alfresco-test
+    tier: frontend
+  type: NodePort
+  clusterIP: 10.102.78.17 
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: alfresco-test
+  labels:
+    app: alfresco-test
+spec:
+  selector:
+    matchLabels:
+      app: alfresco-test
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: alfresco-test
+        tier: frontend
+    spec:
+      containers:
+      - image: supeerawong/docker 
+        name: alfresco-test
+        env:
+        - name: DB_HOST
+          value: mysql
+        - name: DB_KIND
+          value: mysql
+        - name: DB_PASSWORD
+          value: alfresco
+        - name: CONTENT_STORE
+          value: /mnt/content_store
+        ports:
+        - containerPort: 8080
+          name: alfresco-test
+        volumeMounts:
+        - name: alfresco-persistent-storage
+          mountPath: /mnt/content_store
+      volumes:
+      - name: alfresco-persistent-storage
+        hostPath:
+          path: /mnt/test/alfresco
