@@ -3,12 +3,12 @@ kind: Service
 metadata:
   name: mysql
   labels:
-    app: alfresco-test
+    app: alfresco-app
 spec:
   ports:
     - port: 3306
   selector:
-    app: alfresco-test
+    app: alfresco-app
     tier: mysql
   clusterIP: None
 
@@ -18,18 +18,18 @@ kind: Deployment
 metadata:
   name: mysql
   labels:
-    app: alfresco-test
+    app: alfresco-app
 spec:
   selector:
     matchLabels:
-      app: alfresco-test
+      app: alfresco-app
       tier: mysql
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: alfresco-test
+        app: alfresco-app
         tier: mysql
     spec:
       containers:
